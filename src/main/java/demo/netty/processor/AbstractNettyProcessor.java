@@ -1,31 +1,31 @@
 package demo.netty.processor;
 
+import demo.netty.decoder.lsdecoder.AbstractDecoderAdapter;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 
 /**
  * 处理机抽象类
+ * 
  * @author tony
  *
  */
-public class AbstractNettyProcessor extends ChannelInitializer<SocketChannel> {
-	protected ChannelHandlerAdapter adapter;//通信适配器
+public abstract class AbstractNettyProcessor extends ChannelInitializer<SocketChannel> {
+	protected AbstractDecoderAdapter adapter;// 通信适配器
 
 	@Override
-	protected void initChannel(SocketChannel channel) throws Exception {
-		channel.pipeline().addLast(adapter);
-	}
+	protected abstract void initChannel(SocketChannel channel) throws Exception;
 
-	public ChannelHandlerAdapter getAdapter() {
+	public AbstractDecoderAdapter getAdapter() {
 		return adapter;
 	}
 
-	public void setAdapter(ChannelHandlerAdapter adapter) {
+	public void setAdapter(AbstractDecoderAdapter adapter) {
 		this.adapter = adapter;
 	}
 
-	public AbstractNettyProcessor(ChannelHandlerAdapter adapter) {
+	public AbstractNettyProcessor(AbstractDecoderAdapter adapter) {
 		super();
 		this.adapter = adapter;
 	}

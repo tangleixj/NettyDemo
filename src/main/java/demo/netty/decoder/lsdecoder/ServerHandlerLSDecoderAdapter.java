@@ -13,7 +13,7 @@ import io.netty.channel.ChannelHandlerContext;
  * @author tony
  *
  */
-public class ServerHandlerLSDecoderAdapter extends ChannelHandlerAdapter {
+public class ServerHandlerLSDecoderAdapter extends AbstractDecoderAdapter {
 	private int count;
 
 	/**
@@ -28,16 +28,4 @@ public class ServerHandlerLSDecoderAdapter extends ChannelHandlerAdapter {
 				: NettyConstants.ORDER_BAD;
 		ctx.write(Unpooled.copiedBuffer((res + "\n").getBytes()));
 	}
-
-	@Override
-	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-		ctx.flush();
-	}
-
-	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-		cause.printStackTrace();
-		ctx.close();
-	}
-
 }

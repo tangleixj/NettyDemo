@@ -1,6 +1,7 @@
 package demo.netty.decoder;
 
 import demo.netty.constants.NettyConstants;
+import demo.netty.decoder.lsdecoder.AbstractDecoderAdapter;
 import demo.netty.decoder.lsdecoder.ClientHandlerLSDecoderAdapter;
 import demo.netty.processor.AbstractNettyProcessor;
 import demo.netty.processor.LSDecoderProcessor;
@@ -116,7 +117,7 @@ public class NettyClient {
 
 
 	public static void main(String[] args) {
-		ChannelHandlerAdapter adapter = new ClientHandlerLSDecoderAdapter();
+		AbstractDecoderAdapter adapter = new ClientHandlerLSDecoderAdapter();
 		AbstractNettyProcessor processor = new LSDecoderProcessor(adapter);
 		NettyClient client = new NettyClient();
 		client.setProcessor(processor);

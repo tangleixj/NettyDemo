@@ -1,5 +1,6 @@
 package demo.netty.processor;
 
+import demo.netty.decoder.lsdecoder.AbstractDecoderAdapter;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.LineBasedFrameDecoder;
@@ -30,12 +31,13 @@ public class LSDecoderProcessor extends AbstractNettyProcessor {
 		this.maxLength = maxLength;
 	}
 
-	public LSDecoderProcessor(ChannelHandlerAdapter adapter, int maxLength) {
+
+	public LSDecoderProcessor(AbstractDecoderAdapter adapter, int maxLength) {
 		super(adapter);
 		this.maxLength = maxLength;
 	}
 
-	public LSDecoderProcessor(ChannelHandlerAdapter adapter) {
+	public LSDecoderProcessor(AbstractDecoderAdapter adapter) {
 		super(adapter);
 	}
 

@@ -11,7 +11,7 @@ import io.netty.channel.ChannelHandlerContext;
  * @author tony
  *
  */
-public class ClientHandlerLSDecoderAdapter extends ChannelHandlerAdapter {
+public class ClientHandlerLSDecoderAdapter extends AbstractDecoderAdapter {
 	private String order = NettyConstants.ORDER_QUERY_TIME + "\n";
 
 	@Override
@@ -30,12 +30,6 @@ public class ClientHandlerLSDecoderAdapter extends ChannelHandlerAdapter {
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		String res = (String) msg;
 		System.out.println("client recive res mess: " + res);
-	}
-
-	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-		cause.printStackTrace();
-		ctx.close();
 	}
 
 	public String getOrder() {

@@ -1,11 +1,11 @@
 package demo.netty.decoder;
 
+import demo.netty.decoder.lsdecoder.AbstractDecoderAdapter;
 import demo.netty.decoder.lsdecoder.ServerHandlerLSDecoderAdapter;
 import demo.netty.processor.AbstractNettyProcessor;
 import demo.netty.processor.LSDecoderProcessor;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -68,7 +68,7 @@ public class NettyServer {
 	}
 
 	public static void main(String[] args) {
-		ChannelHandlerAdapter adapter = new ServerHandlerLSDecoderAdapter();
+		AbstractDecoderAdapter adapter = new ServerHandlerLSDecoderAdapter();
 		AbstractNettyProcessor processor = new LSDecoderProcessor(adapter);
 		NettyServer server = new NettyServer();
 		server.setProcessor(processor);
