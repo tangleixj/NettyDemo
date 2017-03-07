@@ -1,22 +1,26 @@
 package demo.netty.decoder;
 
-import demo.netty.decoder.lsdecoder.ServerHandlerLSDecoder;
+import demo.netty.decoder.lsdecoder.ServerHandlerLSDecoderAdapter;
+import demo.netty.processor.AbstractNettyProcessor;
+import demo.netty.processor.LSDecoderProcessor;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerAdapter;
-import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.LineBasedFrameDecoder;
-import io.netty.handler.codec.string.StringDecoder;
 
+/**
+ * Netty服务端
+ * 采用注入处理机的方式使得客户端更具有通用性
+ * @author tony
+ *
+ */
 public class NettyServer {
 	private int port = 8080;
 	private int backlog = 1024;
-	private ChannelHandlerAdapter handler;
+	private AbstractNettyProcessor processor;//处理机
 
 	public void start() {
 		EventLoopGroup parentGroup = new NioEventLoopGroup();
@@ -27,16 +31,7 @@ public class NettyServer {
 			boot.group(parentGroup, childGroup);
 			boot.channel(NioServerSocketChannel.class);
 			boot.option(ChannelOption.SO_BACKLOG, backlog);
-			boot.childHandler(new ChannelInitializer<SocketChannel>() {
-
-				@Override
-				protected void initChannel(SocketChannel channel) throws Exception {
-					// TODO Auto-generated method stub
-					channel.pipeline().addLast(new LineBasedFrameDecoder(1024));
-					channel.pipeline().addLast(new StringDecoder());
-					channel.pipeline().addLast(handler);
-				}
-			});
+			boot.childHandler(processor);
 
 			ChannelFuture future = boot.bind(port).sync();
 			future.channel().closeFuture().sync();
@@ -56,14 +51,6 @@ public class NettyServer {
 		this.port = port;
 	}
 
-	public ChannelHandlerAdapter getHandler() {
-		return handler;
-	}
-
-	public void setHandler(ChannelHandlerAdapter handler) {
-		this.handler = handler;
-	}
-
 	public int getBacklog() {
 		return backlog;
 	}
@@ -72,21 +59,19 @@ public class NettyServer {
 		this.backlog = backlog;
 	}
 
-	public NettyServer(int port, int backlog, ChannelHandlerAdapter handler) {
-		super();
-		this.port = port;
-		this.backlog = backlog;
-		this.handler = handler;
+	public AbstractNettyProcessor getProcessor() {
+		return processor;
 	}
 
-	public NettyServer() {
-		super();
+	public void setProcessor(AbstractNettyProcessor processor) {
+		this.processor = processor;
 	}
 
 	public static void main(String[] args) {
-		ChannelHandlerAdapter adapter = new ServerHandlerLSDecoder();
+		ChannelHandlerAdapter adapter = new ServerHandlerLSDecoderAdapter();
+		AbstractNettyProcessor processor = new LSDecoderProcessor(adapter);
 		NettyServer server = new NettyServer();
-		server.setHandler(adapter);
+		server.setProcessor(processor);
 		server.start();
 	}
 }

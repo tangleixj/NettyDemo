@@ -7,9 +7,19 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
-public class ServerHandlerLSDecoder extends ChannelHandlerAdapter {
+/**
+ * 服务端通信适配器
+ * 
+ * @author tony
+ *
+ */
+public class ServerHandlerLSDecoderAdapter extends ChannelHandlerAdapter {
 	private int count;
 
+	/**
+	 * LinedBasedFrameDecoder会针对数据中的回车换行符进行拆包  -->解决粘包/拆包问题
+	 * StringDecoder会直接讲字节流数据转换成字符串 -->方便读操作
+	 */
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		String req = (String) msg;

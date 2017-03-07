@@ -6,11 +6,12 @@ import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
 /**
+ * 客户端通信适配器
  * 
  * @author tony
  *
  */
-public class ClientHandlerLSDecoder extends ChannelHandlerAdapter {
+public class ClientHandlerLSDecoderAdapter extends ChannelHandlerAdapter {
 	private String order = NettyConstants.ORDER_QUERY_TIME + "\n";
 
 	@Override
@@ -21,6 +22,10 @@ public class ClientHandlerLSDecoder extends ChannelHandlerAdapter {
 		}
 	}
 
+	/**
+	 * LinedBasedFrameDecoder会针对数据中的回车换行符进行拆包  -->解决粘包/拆包问题
+	 * StringDecoder会直接讲字节流数据转换成字符串 -->方便读操作
+	 */
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		String res = (String) msg;
@@ -41,12 +46,12 @@ public class ClientHandlerLSDecoder extends ChannelHandlerAdapter {
 		this.order = order;
 	}
 
-	public ClientHandlerLSDecoder(String order) {
+	public ClientHandlerLSDecoderAdapter(String order) {
 		super();
 		this.order = order;
 	}
 
-	public ClientHandlerLSDecoder() {
+	public ClientHandlerLSDecoderAdapter() {
 		super();
 	}
 
