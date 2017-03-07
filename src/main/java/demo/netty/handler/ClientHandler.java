@@ -11,7 +11,15 @@ public class ClientHandler extends ChannelHandlerAdapter {
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		ctx.writeAndFlush(Unpooled.copiedBuffer(order.getBytes()));
+		for (int i = 0; i < 100; i++) {
+			System.out.println("client send time : " + i);
+			ctx.writeAndFlush(Unpooled.copiedBuffer(order.getBytes()));
+		}
+	}
+
+	@Override
+	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+		ctx.flush();
 	}
 
 	@Override
@@ -45,5 +53,5 @@ public class ClientHandler extends ChannelHandlerAdapter {
 	public ClientHandler() {
 		super();
 	}
-	
+
 }

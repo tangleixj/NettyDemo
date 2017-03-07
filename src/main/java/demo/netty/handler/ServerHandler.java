@@ -9,13 +9,15 @@ import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
 public class ServerHandler extends ChannelHandlerAdapter {
+	private int i = 0;
+
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		ByteBuf buff = (ByteBuf) msg;
 		byte[] req = new byte[buff.readableBytes()];
 		buff.readBytes(req);
 		String order = new String(req, NettyConstants.ENCODING);
-		System.out.println("server recive order : " + order);
+		System.out.println("server recive time: " + (++i) + "  order : " + order);
 
 		String currentTime = NettyConstants.ORDER_QUERY_TIME.equals(order)
 				? new Date(System.currentTimeMillis()).toString() : NettyConstants.ORDER_BAD;
