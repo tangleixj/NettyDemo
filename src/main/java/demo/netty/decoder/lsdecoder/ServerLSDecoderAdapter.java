@@ -13,7 +13,7 @@ import io.netty.channel.ChannelHandlerContext;
  * @author tony
  *
  */
-public class ServerHandlerLSDecoderAdapter extends AbstractDecoderAdapter {
+public class ServerLSDecoderAdapter extends AbstractDecoderAdapter {
 	private int count;
 
 	/**

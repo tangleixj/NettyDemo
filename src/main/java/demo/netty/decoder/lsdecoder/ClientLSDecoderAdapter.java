@@ -11,8 +11,9 @@ import io.netty.channel.ChannelHandlerContext;
  * @author tony
  *
  */
-public class ClientHandlerLSDecoderAdapter extends AbstractDecoderAdapter {
+public class ClientLSDecoderAdapter extends AbstractDecoderAdapter {
 	private String order = NettyConstants.ORDER_QUERY_TIME + "\n";
+	private int count;
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
@@ -23,13 +24,13 @@ public class ClientHandlerLSDecoderAdapter extends AbstractDecoderAdapter {
 	}
 
 	/**
-	 * LinedBasedFrameDecoder会针对数据中的回车换行符进行拆包  -->解决粘包/拆包问题
+	 * LinedBasedFrameDecoder会针对数据中的回车换行符进行拆包 -->解决粘包/拆包问题
 	 * StringDecoder会直接讲字节流数据转换成字符串 -->方便读操作
 	 */
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		String res = (String) msg;
-		System.out.println("client recive res mess: " + res);
+		System.out.println("client recive res mess: " + res + " cout: " + (++count));
 	}
 
 	public String getOrder() {
@@ -40,12 +41,12 @@ public class ClientHandlerLSDecoderAdapter extends AbstractDecoderAdapter {
 		this.order = order;
 	}
 
-	public ClientHandlerLSDecoderAdapter(String order) {
+	public ClientLSDecoderAdapter(String order) {
 		super();
 		this.order = order;
 	}
 
-	public ClientHandlerLSDecoderAdapter() {
+	public ClientLSDecoderAdapter() {
 		super();
 	}
 
