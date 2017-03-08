@@ -1,10 +1,8 @@
 package demo.netty.decoder;
 
-import demo.netty.decoder.dbfdecoder.ServerDBFDecoderAdapter;
-import demo.netty.decoder.lsdecoder.ServerLSDecoderAdapter;
+import demo.netty.decoder.flfdecoder.ServerFLFDecoderAdapter;
 import demo.netty.processor.AbstractNettyProcessor;
-import demo.netty.processor.DBFDecoderProcessor;
-import demo.netty.processor.LSDecoderProcessor;
+import demo.netty.processor.FLFDecoderProcessor;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -70,9 +68,11 @@ public class NettyServer {
 
 	public static void main(String[] args) {
 //		AbstractDecoderAdapter adapter = new ServerLSDecoderAdapter();
-		AbstractDecoderAdapter adapter = new ServerDBFDecoderAdapter();
+//		AbstractDecoderAdapter adapter = new ServerDBFDecoderAdapter();
+		AbstractDecoderAdapter adapter = new ServerFLFDecoderAdapter();
 //		AbstractNettyProcessor processor = new LSDecoderProcessor(adapter);
-		AbstractNettyProcessor processor = new DBFDecoderProcessor(adapter);
+//		AbstractNettyProcessor processor = new DBFDecoderProcessor(adapter);
+		AbstractNettyProcessor processor = new FLFDecoderProcessor(adapter);
 		NettyServer server = new NettyServer();
 		server.setProcessor(processor);
 		server.start();
