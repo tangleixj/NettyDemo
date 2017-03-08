@@ -3,9 +3,11 @@ package demo.netty.decoder;
 import demo.netty.constants.NettyConstants;
 import demo.netty.decoder.dbfdecoder.ClientDBFDecoderAdapter;
 import demo.netty.decoder.lsdecoder.ClientLSDecoderAdapter;
+import demo.netty.decoder.messagepack.ClientMsgpackAdapter;
 import demo.netty.processor.AbstractNettyProcessor;
 import demo.netty.processor.DBFDecoderProcessor;
 import demo.netty.processor.LSDecoderProcessor;
+import demo.netty.processor.MsgpackProcessor;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerAdapter;
@@ -107,9 +109,11 @@ public class NettyClient {
 
 	public static void main(String[] args) {
 //		AbstractDecoderAdapter adapter = new ClientLSDecoderAdapter();
-		AbstractDecoderAdapter adapter = new ClientDBFDecoderAdapter();
+//		AbstractDecoderAdapter adapter = new ClientDBFDecoderAdapter();
+		AbstractDecoderAdapter adapter = new ClientMsgpackAdapter();
 //		AbstractNettyProcessor processor = new LSDecoderProcessor(adapter);
-		AbstractNettyProcessor processor = new DBFDecoderProcessor(adapter);
+//		AbstractNettyProcessor processor = new DBFDecoderProcessor(adapter);
+		AbstractNettyProcessor processor = new MsgpackProcessor(adapter);
 		NettyClient client = new NettyClient();
 		client.setProcessor(processor);
 		client.connect();
