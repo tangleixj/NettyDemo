@@ -1,6 +1,7 @@
-package demo.netty.decoder.lsdecoder;
+package demo.netty.decoder.dbfdecoder;
 
 import demo.netty.constants.NettyConstants;
+import demo.netty.decoder.AbstractDecoderAdapter;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 

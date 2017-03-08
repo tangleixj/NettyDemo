@@ -1,7 +1,6 @@
 package demo.netty.decoder;
 
-import demo.netty.decoder.lsdecoder.AbstractDecoderAdapter;
-import demo.netty.decoder.lsdecoder.ServerDBFDecoderAdapter;
+import demo.netty.decoder.dbfdecoder.ServerDBFDecoderAdapter;
 import demo.netty.decoder.lsdecoder.ServerLSDecoderAdapter;
 import demo.netty.processor.AbstractNettyProcessor;
 import demo.netty.processor.DBFDecoderProcessor;

@@ -1,4 +1,4 @@
-package demo.netty.decoder.lsdecoder;
+package demo.netty.decoder;
 
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;

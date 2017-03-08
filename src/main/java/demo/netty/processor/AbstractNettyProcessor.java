@@ -1,6 +1,6 @@
 package demo.netty.processor;
 
-import demo.netty.decoder.lsdecoder.AbstractDecoderAdapter;
+import demo.netty.decoder.AbstractDecoderAdapter;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
